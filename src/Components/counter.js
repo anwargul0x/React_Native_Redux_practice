@@ -1,34 +1,49 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity } from 'react-native';
 
+import counterStyle from './counterStyle'
+import { increment, decrement , reset } from "../Actions/index";
+
 class Counter extends Component {
-constructor(props){
-    super(props);
-}
     render() {
         return (
-            <View>
+            <View style={{ paddingVertical: 6 }}>
                 {/*Count Value*/}
-                <Text>{this.props.counter}</Text>
+                <Text style={counterStyle.textSize}>{this.props.count}</Text>
                 {/*Add button */}
-                <TouchableOpacity >
-                    <Text>Increment</Text>
-                </TouchableOpacity>
-                {/* Decrement Button*/}
-                <TouchableOpacity>
-                    <Text>Decrement</Text>
-                </TouchableOpacity>
+                <View style={{flexDirection: 'row',justifyContent:'space-between'}}>
+                    <TouchableOpacity
+                        style={counterStyle.btn}
+                        onPress={this.props.incremented}>
+                        <Text style={{ color: '#e8e8e8', fontSize: 18 }}>Increment</Text>
+                    </TouchableOpacity>
+                    {/* Decrement Button*/}
+                    <TouchableOpacity
+                        style={counterStyle.btn}
+                        onPress={this.props.decremented}>
+                        <Text style={{ color: '#e8e8e8', fontSize: 18 }}>Decrement</Text>
+                    </TouchableOpacity>
+                    {/* Reset Button*/}
+                    <TouchableOpacity
+                        style={counterStyle.btn}
+                        onPress={this.props.reseted}>
+                        <Text style={{ color: '#e8e8e8', fontSize: 18 }}>Reset</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
 }
+
 const mapStateToProps = (state) => ({
     count:state.CounterReducers.count
 })
-const mapDispatchToProps = (dispatch) => ({
-increment:() => dispatch(),
-decrement:() => dispatch(),
-reset:()=>{}
 
+const mapDispatchToProps = (dispatch) => ({
+incremented:() => dispatch(increment()),
+decremented:() => dispatch(decrement()),
+reseted:()=> dispatch(reset())
 })
-export default Counter;
+
+export default connect(mapStateToProps,mapDispatchToProps)(Counter);

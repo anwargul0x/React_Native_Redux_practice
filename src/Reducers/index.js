@@ -1,4 +1,4 @@
-import { CombineReducers, combineReducers } from 'redux';
+import { combineReducers } from 'redux';
 import CounterReducers from './countReducers';
 
 let rootReducer = combineReducers({

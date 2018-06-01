@@ -1,18 +1,12 @@
-import * as Actions from './ActionTypes';
+import { COUNTER_INCREMENT, COUNTER_DECREMENT, COUNTER_RESET } from './ActionTypes';
 
 export const increment = () => {
-    return {
-        type: Actions.COUNTER_INCREMENT
-    }
-}
+        return {type: COUNTER_INCREMENT}
+    };
 
-export const decrement = () => {
-    return {
-        type: Actions.COUNTER_INCREMENT
-    }
-}
-export const decrement = () => {
-    return {
-        type: Actions.COUNTER_RESET
-    }
+export const decrement = () =>{
+        return { type: COUNTER_DECREMENT}
+};
+export const reset = ()=>{
+        return { type: COUNTER_RESET};
 }
