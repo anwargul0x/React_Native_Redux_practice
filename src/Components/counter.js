@@ -7,28 +7,46 @@ import { increment, decrement , reset } from "../Actions/index";
 
 class Counter extends Component {
     render() {
+
+        const { 
+            mainView,
+            titleView, 
+            textSize,
+            titleTextBig, 
+            titleTextSmall, 
+            contentView,
+            btnText } = counterStyle;
+
+        let { count } = this.props;
+
         return (
-            <View style={{ paddingVertical: 6 }}>
+            <View style={mainView}>
+                <View style={titleView}>
+                    <Text style={titleTextBig}>REDUXIFY <Text style={titleTextSmall}>Counter App </Text>
+                    </Text>
+                </View>
                 {/*Count Value*/}
-                <Text style={counterStyle.textSize}>{this.props.count}</Text>
-                {/*Add button */}
-                <View style={{flexDirection: 'row',justifyContent:'space-between'}}>
-                    <TouchableOpacity
-                        style={counterStyle.btn}
-                        onPress={this.props.incremented}>
-                        <Text style={{ color: '#e8e8e8', fontSize: 18 }}>Increment</Text>
-                    </TouchableOpacity>
+                <View style={contentView}>
+                    <Text style={textSize}>{count}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
                     {/* Decrement Button*/}
                     <TouchableOpacity
-                        style={counterStyle.btn}
+                        style={[counterStyle.btn, { backgroundColor: '#f91b5e' }]}
                         onPress={this.props.decremented}>
-                        <Text style={{ color: '#e8e8e8', fontSize: 18 }}>Decrement</Text>
+                        <Text style={btnText}>Decrement</Text>
                     </TouchableOpacity>
                     {/* Reset Button*/}
                     <TouchableOpacity
-                        style={counterStyle.btn}
+                        style={[counterStyle.btn, { marginHorizontal: 4, backgroundColor: '#00d77d'} ]}
                         onPress={this.props.reseted}>
-                        <Text style={{ color: '#e8e8e8', fontSize: 18 }}>Reset</Text>
+                        <Text style={btnText}>Reset</Text>
+                    </TouchableOpacity>
+                {/*Add button */}
+                    <TouchableOpacity
+                        style={counterStyle.btn}
+                        onPress={this.props.incremented}>
+                        <Text style={btnText}>Increment</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -36,9 +54,7 @@ class Counter extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    count:state.CounterReducers.count
-})
+const mapStateToProps = ({ CounterReducers:{count}}) => ({count})
 
 const mapDispatchToProps = (dispatch) => ({
 incremented:() => dispatch(increment()),
